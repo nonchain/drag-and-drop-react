@@ -3,6 +3,7 @@ import { useState } from "react";
 // Components
 import { Card, CardHeader, CardBody, Heading, Stack } from "@chakra-ui/react";
 import DropFileInput from "./drop-file-input.component";
+import FileItem from "../file/file-item.component";
 
 function DragDropFile() {
   const [draggedFile, setDraggedFile] = useState<object>({
@@ -45,6 +46,7 @@ function DragDropFile() {
       <CardBody>
         <Stack>
           <DropFileInput onChange={onFileChangedHandler} />
+          <FileItem file={draggedFile.file} />
         </Stack>
       </CardBody>
     </Card>
