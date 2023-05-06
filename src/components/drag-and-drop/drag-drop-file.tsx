@@ -32,7 +32,6 @@ function DragDropFile() {
       sx={{
         padding: "1rem 1.5rem",
         width: "22rem",
-        minHeight: "18rem",
         backgroundColor: "#FFF",
         borderRadius: "0.75rem",
         shadow: "0 2px 4px #00000012",
@@ -44,7 +43,7 @@ function DragDropFile() {
         </Heading>
       </CardHeader>
       <CardBody>
-        <Stack>
+        <Stack gap="2rem">
           <DropFileInput onChange={onFileChangedHandler} />
           <FileItem file={draggedFile.file} />
         </Stack>
