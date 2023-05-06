@@ -1,16 +1,34 @@
+// Libraries
+import { useState } from "react";
+// Components
 import { Image, Input, Stack, Text } from "@chakra-ui/react";
 // Files
 import uploadImage from "../../assets/images/cloud-upload-regular-240.png";
+// TS configs
+import { Props } from "../../models/drop-file-input/props";
 
-function DropFileInput() {
+function DropFileInput({ onChange }: Props) {
+  const [dragIn, setDragIn] = useState<boolean>(false);
+
+  const onFileSelect = (event: React.FormEvent) => {
+    const newFile = event.target.files[0];
+    if (newFile) {
+      setDragIn(false);
+      onChange(newFile);
+    }
+  };
+
   return (
     <Stack
+      onDragEnter={() => setDragIn(true)}
+      onDragLeave={() => setDragIn(false)}
       sx={{
         padding: "1rem 1.25rem",
-        bgColor: "#EAFAFF",
-        border: "1px dashed #1f1f1f",
+        bgColor: dragIn ? "#D9D8DA" : "#EAFAFF",
+        border: dragIn ? "1px solid #1f1f1f" : "1px dashed #1f1f1f",
         borderRadius: "0.5rem",
-        position: "relative"
+        position: "relative",
+        transition: "0.3s ease-in-out",
       }}
     >
       <Stack alignItems="center">
@@ -24,6 +42,8 @@ function DropFileInput() {
         type="file"
         name="file"
         value=""
+        onChange={onFileSelect}
+        accept="image/png, application/pdf, text/plain"
         sx={{
           width: "100%",
           height: "100%",
