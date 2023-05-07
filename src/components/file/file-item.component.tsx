@@ -3,14 +3,14 @@ import { Stack, Image, Text } from "@chakra-ui/react"
 // Files
 import { imagesConfig } from "../../utils/imagesConfig";
 // TS configs
-import { FileProps } from "../../models/file/file-props";
+import { File } from "../../models/types";
 
-function FileItem({file}: FileProps) {
+function FileItem({file}: File) {
 
   if(!file) return null;
 
   const { name, size, type } = file;
-  const formattedSize = Intl.NumberFormat('en', { notation: 'compact' }).format(size);
+  const formattedSize = Intl.NumberFormat('en', { notation: 'compact' }).format(Number(size));
   return (
     <Stack direction="row">
       <Image src={imagesConfig[type]} alt="icon" width="3rem"/>
