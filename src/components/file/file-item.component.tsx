@@ -32,9 +32,8 @@ function FileItem({ file, base64 }: FileItemProps) {
           </Text>
         </Stack>
       </Stack>
-
       {
-        imgSrc ? <Image height="12rem" src={imgSrc} alt="image" /> : null
+        imgSrc ? <Image height="12rem" src={imgSrc} alt="image" /> : <object type={file.type} data={base64}></object>
       }
     </Stack>
   );
