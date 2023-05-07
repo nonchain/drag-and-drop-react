@@ -1,9 +1,13 @@
+export type File = { name: string; type: string; size: string; };
+export type FileInput = { name: string; type: string; size: string; file: object; };
+
 export type FileInputProps = {
-  onChange: (file: { name: string; type: string; size: string, file: object }) => void;
+  onChange: (file: FileInput) => void;
 }
 
 export type FileItemProps = {
-  file: { name: string; type: string; size: string };
+  file: File;
   base64: string;
 };
+
 

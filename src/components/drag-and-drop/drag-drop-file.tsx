@@ -4,13 +4,11 @@ import { useState } from "react";
 import { Card, CardHeader, CardBody, Heading, Stack } from "@chakra-ui/react";
 import DropFileInput from "./drop-file-input.component";
 import FileItem from "../file/file-item.component";
+// TS Configs
+import { File, FileInput } from "../../models/types";
 
 type DraggedFile = {
-  file: {
-    name: string;
-    type: string;
-    size: string;
-  };
+  file: File;
   base64: string;
 };
 
@@ -32,7 +30,7 @@ function DragDropFile() {
       reader.onerror = reject;
     });
 
-  const onFileChangedHandler = async (file: { name: string; type: string; size: string, file: object }) => {
+  const onFileChangedHandler = async (file: FileInput) => {
     const base64Converted = await toBase64(file.file);
     console.log(base64Converted);
     setDraggedFile({

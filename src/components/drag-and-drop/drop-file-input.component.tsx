@@ -21,10 +21,15 @@ function DropFileInput({ onChange }: FileInputProps) {
       newFile.type === "application/pdf" ||
       newFile.type === "text/plain"
     ) {
-      onChange({ name: newFile?.name, type: newFile?.type, size: newFile?.size.toString(), file: newFile });
-      toast.success("File uploaded successfully")
+      onChange({
+        name: newFile?.name,
+        type: newFile?.type,
+        size: newFile?.size.toString(),
+        file: newFile,
+      });
+      toast.success("File uploaded successfully");
     } else {
-      return toast.error("Unsupported format")
+      return toast.error("Unsupported format");
     }
   };
 
