@@ -15,7 +15,7 @@ function FileItem({ file, base64 }: FileItemProps) {
 
   const imgSrc = file.type === "image/png" ? base64 : "";
   return (
-    <Stack gap="1rem">
+    <Stack padding="0.25rem" gap="1rem" border="2px solid #EAEAEA" borderRadius="0.5rem">
       <Stack direction="row">
         <Image src={imagesConfig[type]} alt="icon" width="3rem" />
         <Stack justifyContent="center">
