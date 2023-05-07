@@ -6,9 +6,9 @@ import { Image, Input, Stack, Text } from "@chakra-ui/react";
 // Files
 import uploadImage from "../../assets/images/cloud-upload-regular-240.png";
 // TS configs
-import { Props } from "../../models/drop-file-input/props";
+import { FileInputProps } from "../../models/drop-file-input/props";
 
-function DropFileInput({ onChange }: Props) {
+function DropFileInput({ onChange }: FileInputProps) {
   const [dragIn, setDragIn] = useState<boolean>(false);
 
   const onFileSelect = (event: React.FormEvent) => {
