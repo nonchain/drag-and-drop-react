@@ -1,29 +1,17 @@
 // Libraries
 import { useState } from "react";
 // Components
-import { Card, CardHeader, CardBody, Heading, Stack } from "@chakra-ui/react";
+import { Stack } from "@chakra-ui/react";
 import DropFileInput from "./drop-file-input.component";
-import FileItem from "../file/file-item.component";
+import FilesList from "../file/files-list";
 // TS Configs
-import { File, FileInput } from "../../models/types";
-
-type DraggedFile = {
-  file: File;
-  base64: string;
-};
+import { DraggedFile, FileInput } from "../../models/types";
 
 function DragDropFile() {
-  const [draggedFile, setDraggedFile] = useState<DraggedFile>({
-    file: {
-      name: '',
-      type: '',
-      size: '',
-    },
-    base64: '',
-  });
+  const [filesList, setFileList] = useState<DraggedFile[]>([]);
 
   const toBase64 = (file: object) =>
-  new Promise((resolve, reject) => {
+    new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.readAsDataURL(file as Blob);
       reader.onload = () => resolve(reader.result);
@@ -31,40 +19,23 @@ function DragDropFile() {
     });
 
   const onFileChangedHandler = async (file: FileInput) => {
+    console.log(file);
     const base64Converted = await toBase64(file.file);
-    console.log(base64Converted);
-    setDraggedFile({
+    setFileList(filesList.concat({
       file: {
         name: file?.name,
         type: file?.type,
         size: file?.size,
       },
-      base64: base64Converted as string
-    })
+      base64: base64Converted as string,
+    }));
   };
 
   return (
-    <Card
-      sx={{
-        padding: "1rem 1.5rem",
-        width: "22rem",
-        backgroundColor: "#FFF",
-        borderRadius: "0.75rem",
-        shadow: "0 2px 4px #00000012",
-      }}
-    >
-      <CardHeader>
-        <Heading mb="1rem" fontSize="1.25rem">
-          Upload your file
-        </Heading>
-      </CardHeader>
-      <CardBody>
-        <Stack gap="2rem">
-          <DropFileInput onChange={onFileChangedHandler} />
-          <FileItem file={draggedFile.file} base64={draggedFile.base64}/>
-        </Stack>
-      </CardBody>
-    </Card>
+    <Stack gap="1rem" minWidth="24rem">
+      <DropFileInput onChange={onFileChangedHandler} />
+      <FilesList filesList={filesList}/>
+    </Stack>
   );
 }
 
