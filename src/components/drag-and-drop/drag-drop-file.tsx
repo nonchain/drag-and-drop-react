@@ -23,6 +23,7 @@ function DragDropFile() {
     const base64Converted = await toBase64(file.file);
     setFileList(filesList.concat({
       file: {
+        id: file.id,
         name: file?.name,
         type: file?.type,
         size: file?.size,
@@ -31,10 +32,15 @@ function DragDropFile() {
     }));
   };
 
+  const onDeleteFileHandler = (fileId: string) => {
+    const updatedList = filesList.filter(file => file?.file?.id !== fileId);
+    setFileList(updatedList);
+  }
+
   return (
     <Stack gap="1rem" minWidth="24rem">
       <DropFileInput onChange={onFileChangedHandler} />
-      <FilesList filesList={filesList}/>
+      <FilesList filesList={filesList} onDeleteFile={onDeleteFileHandler}/>
     </Stack>
   );
 }

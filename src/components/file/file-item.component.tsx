@@ -1,40 +1,47 @@
 // Components
-import { Stack, Image, Text } from "@chakra-ui/react";
-// Files
-import { imagesConfig } from "../../utils/imagesConfig";
+import { Stack, Text, IconButton } from "@chakra-ui/react";
+import { CloseIcon } from "@chakra-ui/icons";
 // TS configs
 import { FileItemProps } from "../../models/types";
 
-function FileItem({ file, base64 }: FileItemProps) {
+function FileItem({ file, base64, onDeleteFile }: FileItemProps) {
   if (!file.name) return null;
 
-  const { name, size, type } = file;
+  const { id, name, size } = file;
   const formattedSize = Intl.NumberFormat("en", { notation: "compact" }).format(
     Number(size)
   );
 
-  const imgSrc = file.type === "image/png" ? base64 : "";
   return (
-    <Stack padding="0.25rem" gap="1rem" border="2px solid #EAEAEA" borderRadius="0.5rem">
-      <Stack direction="row">
-        <Image src={imagesConfig[type]} alt="icon" width="3rem" />
-        <Stack justifyContent="center">
-          <Text fontSize="0.812rem" fontWeight="600">
-            {name}
-          </Text>
-          <Text
-            color="#585859"
-            fontSize="0.65rem"
-            fontWeight="500"
-            sx={{ "&.chakra-text": { margin: 0 } }}
-          >
-            {formattedSize}B
-          </Text>
-        </Stack>
+    <Stack direction="row" alignItems="center" justifyContent="space-between">
+      <Stack justifyContent="center">
+        <Text fontSize="0.812rem" fontWeight="600">
+          {name}
+        </Text>
+        <Text
+          color="#585859"
+          fontSize="0.65rem"
+          fontWeight="500"
+          sx={{ "&.chakra-text": { margin: 0 } }}
+        >
+          {formattedSize}B
+        </Text>
       </Stack>
-      {
-        imgSrc ? <Image height="12rem" src={imgSrc} alt="image" /> : <object type={file.type} data={base64}></object>
-      }
+
+      <IconButton
+        size="sm"
+        aria-label="Delete file"
+        icon={<CloseIcon boxSize="0.55rem" />}
+        onClick={()=> onDeleteFile(id)}
+        sx={{
+          padding: "0.25rem",
+          backgroundColor: "#df4040",
+          border: "none",
+          borderRadius: "0.125rem",
+          color: "#FFF",
+          cursor: "pointer",
+        }}
+      />
     </Stack>
   );
 }
