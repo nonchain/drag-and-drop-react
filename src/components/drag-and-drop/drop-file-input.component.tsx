@@ -1,5 +1,6 @@
 // Libraries
 import { useState } from "react";
+import { toast } from "react-hot-toast";
 // Components
 import { Image, Input, Stack, Text } from "@chakra-ui/react";
 // Files
@@ -11,10 +12,19 @@ function DropFileInput({ onChange }: Props) {
   const [dragIn, setDragIn] = useState<boolean>(false);
 
   const onFileSelect = (event: React.FormEvent) => {
+    setDragIn(false);
     const newFile = event.target.files[0];
-    if (newFile) {
-      setDragIn(false);
+
+    if (!newFile) return toast.error("No file selected");
+    if (
+      newFile.type === "image/png" ||
+      newFile.type === "application/pdf" ||
+      newFile.type === "text/plain"
+    ) {
       onChange(newFile);
+      toast.success("File uploaded successfully")
+    } else {
+      return toast.error("Unsupported format")
     }
   };
 
