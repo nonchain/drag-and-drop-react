@@ -11,9 +11,9 @@ import { FileInputProps } from "../../models/types";
 function DropFileInput({ onChange }: FileInputProps) {
   const [dragIn, setDragIn] = useState<boolean>(false);
 
-  const onFileSelect = (event: React.FormEvent) => {
+  const onFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     setDragIn(false);
-    const newFile = event.target.files[0];
+    const newFile = event?.target?.files?.[0];
 
     if (!newFile) return toast.error("No file selected");
     if (
