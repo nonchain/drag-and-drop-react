@@ -1,6 +1,7 @@
 // Libraries
 import { useState } from "react";
 import { toast } from "react-hot-toast";
+import { v4 as uuid } from 'uuid';
 // Components
 import { Box, FormControl, FormLabel, Input, Text } from "@chakra-ui/react";
 // TS configs
@@ -12,6 +13,7 @@ function DropFileInput({ onChange }: FileInputProps) {
   const onFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     setDragIn(false);
     const newFile = event?.target?.files?.[0];
+    const unique_id = uuid();
 
     if (!newFile) return toast.error("No file selected");
     if (
@@ -20,6 +22,7 @@ function DropFileInput({ onChange }: FileInputProps) {
       newFile.type === "text/plain"
     ) {
       onChange({
+        id: unique_id.toString(),
         name: newFile?.name,
         type: newFile?.type,
         size: newFile?.size.toString(),
