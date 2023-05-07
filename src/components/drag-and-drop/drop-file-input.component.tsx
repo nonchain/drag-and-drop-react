@@ -2,9 +2,7 @@
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 // Components
-import { Image, Input, Stack, Text } from "@chakra-ui/react";
-// Files
-import uploadImage from "../../assets/images/cloud-upload-regular-240.png";
+import { Box, FormControl, FormLabel, Input, Text } from "@chakra-ui/react";
 // TS configs
 import { FileInputProps } from "../../models/types";
 
@@ -17,7 +15,7 @@ function DropFileInput({ onChange }: FileInputProps) {
 
     if (!newFile) return toast.error("No file selected");
     if (
-      newFile.type === "image/png" ||
+      newFile.type.includes("image/") ||
       newFile.type === "application/pdf" ||
       newFile.type === "text/plain"
     ) {
@@ -34,42 +32,54 @@ function DropFileInput({ onChange }: FileInputProps) {
   };
 
   return (
-    <Stack
+    <Box
       onDragEnter={() => setDragIn(true)}
       onDragLeave={() => setDragIn(false)}
       sx={{
         padding: "1rem 1.25rem",
-        bgColor: dragIn ? "#D9D8DA" : "#EAFAFF",
-        border: dragIn ? "1px solid #1f1f1f" : "1px dashed #1f1f1f",
-        borderRadius: "0.5rem",
+        bgColor: dragIn ? "#EAEAEA" : "#FAFFFF",
+        border: dragIn ? "2px solid #898989" : "2px dashed #BAB7B7",
+        borderRadius: "0.25rem",
         position: "relative",
-        transition: "0.3s ease-in-out",
+        transition: "0.22s ease-in-out",
       }}
     >
-      <Stack alignItems="center">
-        <Image src={uploadImage} alt="Upload" width="3rem" />
-        <Text color="#989a9a" fontSize="small" fontWeight="400">
-          Drag & Drops your files here
+      <FormControl>
+        <Text color="#989a9a" fontSize="1rem" fontWeight="400" textAlign="center">
+          Drag file here to upload or
         </Text>
-      </Stack>
-
-      <Input
-        type="file"
-        name="file"
-        value=""
-        onChange={onFileSelect}
-        accept="image/png, application/pdf, text/plain"
-        sx={{
-          width: "100%",
-          height: "100%",
-          cursor: "pointer",
-          position: "absolute",
-          top: "0",
-          left: "0",
-          opacity: "0",
-        }}
-      />
-    </Stack>
+        <FormLabel
+          sx={{
+            padding: "0.25rem 1.75rem",
+            margin: "1rem auto 0",
+            maxWidth: "max-content",
+            border: "2px solid #ABAAA8",
+            borderRadius: "0.25rem",
+            color: "#575658",
+            fontSize: "0.812rem",
+            fontWeight: "500",
+          }}
+        >
+          Choose file
+        </FormLabel>
+        <Input
+          type="file"
+          name="file"
+          value=""
+          onChange={onFileSelect}
+          accept="image/png, image/jpg, image/jpeg, application/pdf, text/plain"
+          sx={{
+            width: "100%",
+            height: "100%",
+            cursor: "pointer",
+            position: "absolute",
+            top: "0",
+            left: "0",
+            opacity: "0",
+          }}
+        />
+      </FormControl>
+    </Box>
   );
 }
 
