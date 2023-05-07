@@ -3,9 +3,9 @@ import { Stack, Image, Text } from "@chakra-ui/react"
 // Files
 import { imagesConfig } from "../../utils/imagesConfig";
 // TS configs
-import { File } from "../../models/types";
+import { FileItemProps } from "../../models/types";
 
-function FileItem({file}: File) {
+function FileItem({file}: FileItemProps) {
 
   if(!file) return null;
 

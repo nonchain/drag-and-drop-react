@@ -1,8 +1,8 @@
 export type FileInputProps = {
-  onChange: (file: object) => void;
+  onChange: (file: { name: string; type: string; size: string }) => void;
 }
 
-export type File = {
+export type FileItemProps = {
   file: { name: string; type: string; size: string };
 };
 
