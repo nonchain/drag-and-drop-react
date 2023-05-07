@@ -32,8 +32,9 @@ function DragDropFile() {
       reader.onerror = reject;
     });
 
-  const onFileChangedHandler = async (file: { name: string; type: string; size: string }) => {
-    const base64Converted = await toBase64(file);
+  const onFileChangedHandler = async (file: { name: string; type: string; size: string, file: object }) => {
+    const base64Converted = await toBase64(file.file);
+    console.log(base64Converted);
     setDraggedFile({
       file: {
         name: file?.name,
@@ -62,7 +63,7 @@ function DragDropFile() {
       <CardBody>
         <Stack gap="2rem">
           <DropFileInput onChange={onFileChangedHandler} />
-          <FileItem file={draggedFile.file} />
+          <FileItem file={draggedFile.file} base64={draggedFile.base64}/>
         </Stack>
       </CardBody>
     </Card>
